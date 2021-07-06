@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:estacionamento_joao/app/core/consts/database_consts.dart';
 import 'package:estacionamento_joao/app/core/consts/project_consts.dart';
 import 'package:estacionamento_joao/app/core/models/vehicle_entry_model.dart';
 import 'package:estacionamento_joao/app/core/repositories/interface_storage_repository.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 class StorageRepository implements InterfaceStorageRepository{
 
@@ -13,8 +16,17 @@ class StorageRepository implements InterfaceStorageRepository{
   }
 
   init() async {
-    var databasesPath = await getDatabasesPath();
-    String path = databasesPath + 'vehicles.db';
+    // var databasesPath = await getDatabasesPath();
+    String path = 'vehicles.db';
+    if (await Directory(dirname(path)).exists()) {
+      await deleteDatabase(path);
+    } else {
+      try {
+        await Directory(dirname(path)).create(recursive: true);
+      } catch (e) {
+        print(e);
+      }
+    }
 
     _database = await openDatabase(
       path,
@@ -37,7 +49,7 @@ class StorageRepository implements InterfaceStorageRepository{
 
   @override
   Future<List<VehicleEntryModel>> getActiveEntries() async {
-    List<Map<String, dynamic>> databaseQueryResult = await _database.query(activeTable);
+    List<Map<String, dynamic>> databaseQueryResult = await _database.rawQuery('SELECT * FROM $activeTable WHERE start IS NOT NULL');
     List<VehicleEntryModel> activeVehicles = databaseQueryResult.map((e) => VehicleEntryModel.fromJson(e)).toList();
     return activeVehicles;
   }
@@ -69,7 +81,15 @@ class StorageRepository implements InterfaceStorageRepository{
 
   @override
   Future<void> updateActiveEntry(VehicleEntryModel model) async {
-    await _database.update(activeTable, model.toJson(), where: 'slotId = ?', whereArgs: [model.slotId]);
+    if(model.end == null){
+      //making entry active
+      await _database.update(activeTable, model.toJsonActive(), where: 'slotId = ?', whereArgs: [model.slotId]);
+    }
+    else{
+      //making entry inactive
+      await _database.update(activeTable, model.toJsonActive(returnStart: false), where: 'slotId = ?', whereArgs: [model.slotId]);
+  
+    }
   }
 
 }
