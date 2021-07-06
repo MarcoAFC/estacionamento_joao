@@ -25,8 +25,8 @@ class VehicleEntryModel{
   Map<String, dynamic> toJson(){
     return {
       'slotId': slotId, 
-      'start': start,
-      'end': end,
+      'start': start.millisecondsSinceEpoch,
+      'end': end?.millisecondsSinceEpoch,
       'id': id
     };
   }
