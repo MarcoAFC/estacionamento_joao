@@ -1,0 +1,1 @@
+const int parkingSlots = 10;

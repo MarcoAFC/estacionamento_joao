@@ -5,4 +5,5 @@ abstract class InterfaceStorageRepository{
   Future<List<VehicleEntryModel>> getActiveEntries();
   Future<bool> insertEntry(VehicleEntryModel model);
   Future<bool> updateEntry(VehicleEntryModel model);
+  Future<void> updateActiveEntry(VehicleEntryModel model);
 }

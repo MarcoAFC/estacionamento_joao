@@ -8,27 +8,23 @@ class StorageService implements InterfaceStorageService{
   StorageService(this._repository);
 
   @override
-  Future<List<VehicleEntryModel>> getActiveEntries() {
-    // TODO: implement getActiveEntries
-    throw UnimplementedError();
-  }
+  Future<List<VehicleEntryModel>> getActiveEntries() => _repository.getActiveEntries();
 
   @override
-  Future<List<VehicleEntryModel>> getAllEntries() {
-    // TODO: implement getAllEntries
-    throw UnimplementedError();
-  }
+  Future<List<VehicleEntryModel>> getAllEntries() => _repository.getAllEntries();
 
   @override
-  Future<bool> insertEntry(VehicleEntryModel model) {
-    // TODO: implement insertEntry
-    throw UnimplementedError();
+  Future<bool> insertEntry(VehicleEntryModel model) async {
+    var response = await _repository.insertEntry(model);
+    await _repository.updateActiveEntry(model);
+    return response;
   }
   
   @override
-  Future<bool> updateEntry(VehicleEntryModel model) {
-    // TODO: implement updateEntry
-    throw UnimplementedError();
+  Future<bool> updateEntry(VehicleEntryModel model) async {
+    var response = await _repository.updateEntry(model);
+    await _repository.updateActiveEntry(model);
+    return response;
   }
 
 }
