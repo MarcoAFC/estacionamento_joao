@@ -27,4 +27,7 @@ class StorageService implements InterfaceStorageService{
     return response;
   }
 
+  @override
+  Future<void> initDB() => _repository.init();
+
 }
