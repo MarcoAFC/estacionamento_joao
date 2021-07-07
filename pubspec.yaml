@@ -28,7 +28,8 @@ dependencies:
   flutter_modular: ^3.3.0
   mobx: ^2.0.1
   sqflite: ^2.0.0+3
-
+  intl:
+    
 dev_dependencies:
   flutter_test:
     sdk: flutter

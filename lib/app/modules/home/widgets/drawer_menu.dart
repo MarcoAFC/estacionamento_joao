@@ -13,16 +13,7 @@ class DrawerMenu extends StatelessWidget {
             padding: EdgeInsets.zero,
             child: Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  // begin: Alignment.topLeft,
-                  // end: Alignment.bottomRight,
-                  colors: [
-                    Color(0xFF0a437a),
-                    Colors.blueGrey.shade50,
-                  ],
-                  begin: const FractionalOffset(-0.8, -0.8),
-                  end: const FractionalOffset(1.0, 1.0),
-                ),
+                color: Colors.blue
               ),
               child: Align(
                 alignment: Alignment.bottomLeft,

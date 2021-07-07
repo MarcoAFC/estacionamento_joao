@@ -3,7 +3,7 @@ import 'package:estacionamento_joao/app/core/repositories/interface_storage_repo
 import 'package:estacionamento_joao/app/core/services/impl/storage_service.dart';
 import 'package:estacionamento_joao/app/core/services/interface_storage_service.dart';
 import 'package:estacionamento_joao/app/modules/history/history_page.dart';
-import 'package:estacionamento_joao/app/modules/home/store/home_store.dart';
+import 'package:estacionamento_joao/app/modules/history/store/history_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class HistoryModule extends Module {
@@ -11,7 +11,7 @@ class HistoryModule extends Module {
   List<Bind> get binds => [
     Bind((i) => StorageRepository()),
     Bind((i) => StorageService(i.get<InterfaceStorageRepository>())),
-    Bind((i) => HomeStore(i.get<InterfaceStorageService>()))
+    Bind((i) => HistoryStore(i.get<InterfaceStorageService>()))
   ];
 
   @override
