@@ -1,5 +1,6 @@
 import 'package:estacionamento_joao/app/core/models/vehicle_entry_model.dart';
 import 'package:estacionamento_joao/app/modules/home/store/home_store.dart';
+import 'package:estacionamento_joao/app/modules/home/widgets/drawer_menu.dart';
 import 'package:estacionamento_joao/app/modules/home/widgets/end_dialog.dart';
 import 'package:estacionamento_joao/app/modules/home/widgets/parking_slot.dart';
 import 'package:estacionamento_joao/app/modules/home/widgets/start_dialog.dart';
@@ -31,6 +32,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
           }
         ),
       ),
+      drawer: DrawerMenu(),
     );
   }
 
