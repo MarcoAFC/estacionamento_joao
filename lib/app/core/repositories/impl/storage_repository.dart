@@ -59,7 +59,6 @@ class StorageRepository implements InterfaceStorageRepository{
 
   @override
   Future<bool> insertEntry(VehicleEntryModel model) async {
-    var map = model.toJson();
     int result = await _database.insert(entriesTable, model.toJson());
     if(result != 0){
       return true;
