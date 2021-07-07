@@ -14,11 +14,14 @@ class StorageService implements InterfaceStorageService{
   Future<List<VehicleEntryModel>> getAllEntries() => _repository.getAllEntries();
 
   @override
-  Future<int> insertEntry(VehicleEntryModel model) async {
+  Future<bool> insertEntry(VehicleEntryModel model) async {
     var id = await _repository.insertEntry(model);
     model.id = id;
     await _repository.updateActiveEntry(model);
-    return id;
+    if(id != 0){
+      return true;
+    }
+    return false;
   }
   
   @override

@@ -27,7 +27,7 @@ abstract class _HomeStoreBase with Store {
   }
   @action
   Future<void> occupySlot(VehicleEntryModel model, DateTime datetime) async{
-    int id = await _service.insertEntry(model..start = datetime);
+    await _service.insertEntry(model..start = datetime);
     await getActiveEntries();
   }
 
