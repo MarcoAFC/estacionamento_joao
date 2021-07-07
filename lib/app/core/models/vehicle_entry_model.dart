@@ -1,32 +1,35 @@
 class VehicleEntryModel{
   final int slotId;
-  final DateTime? start;
-  final DateTime? end;
+  DateTime? start;
+  DateTime? end;
   final int? id;
+  final bool active;
 
   VehicleEntryModel(
     {
       required this.slotId, 
       this.start,
       this.end, 
-      this.id
+      this.id,
+      this.active = false
     }
   );
 
   factory VehicleEntryModel.fromJson(Map<String, dynamic> json){
     return VehicleEntryModel(
       slotId: json['slotId'], 
-      start: json['start'] != null ? DateTime.fromMillisecondsSinceEpoch(json['start']) : null,
-      end: json['end'] != null ? DateTime.fromMillisecondsSinceEpoch(json['end']) : null,
-      id: json['id']
+      start: (json['start'] != null && json['start'] != 0) ? DateTime.fromMillisecondsSinceEpoch(json['start']) : null,
+      end: (json['end'] != null && json['end'] != 0) ? DateTime.fromMillisecondsSinceEpoch(json['end']) : null,
+      id: json['id'],
+      active: (json['start'] != null && json['start'] != 0) ? true : false
     );
   }
 
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson(){   
     return {
       'slotId': slotId, 
-      'start': start?.millisecondsSinceEpoch,
-      'end': end?.millisecondsSinceEpoch,
+      'start': start?.millisecondsSinceEpoch?? 0,
+      'end': end?.millisecondsSinceEpoch?? 0 ,
       'id': id
     };
   }
@@ -34,7 +37,7 @@ class VehicleEntryModel{
   Map<String, dynamic> toJsonActive({bool returnStart = true}){
     return {
       'slotId': slotId, 
-      'start': returnStart? start?.millisecondsSinceEpoch : null,
+      'start': returnStart? start?.millisecondsSinceEpoch : 0,
     };
   }
 }

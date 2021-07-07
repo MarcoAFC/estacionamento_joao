@@ -11,16 +11,11 @@ class StorageRepository implements InterfaceStorageRepository{
 
   late Database _database;
 
-  StorageRepository(){
-    init();
-  }
-
+  @override
   init() async {
     // var databasesPath = await getDatabasesPath();
     String path = 'vehicles.db';
-    if (await Directory(dirname(path)).exists()) {
-      await deleteDatabase(path);
-    } else {
+    if (!await Directory(dirname(path)).exists()) {
       try {
         await Directory(dirname(path)).create(recursive: true);
       } catch (e) {
@@ -41,15 +36,16 @@ class StorageRepository implements InterfaceStorageRepository{
         );
         Batch batch = db.batch();
         for(int i = 0; i < parkingSlots; i++){
-          batch.insert('$activeTable', {'$slotId':  i});
+          batch.insert('$activeTable', {'$slotId':  i, 'start': 0});
         }
         batch.commit(noResult: true);
-      });
+      }
+    );
   }
 
   @override
   Future<List<VehicleEntryModel>> getActiveEntries() async {
-    List<Map<String, dynamic>> databaseQueryResult = await _database.rawQuery('SELECT * FROM $activeTable WHERE start IS NOT NULL');
+    List<Map<String, dynamic>> databaseQueryResult = await _database.query(activeTable);
     List<VehicleEntryModel> activeVehicles = databaseQueryResult.map((e) => VehicleEntryModel.fromJson(e)).toList();
     return activeVehicles;
   }
@@ -63,6 +59,7 @@ class StorageRepository implements InterfaceStorageRepository{
 
   @override
   Future<bool> insertEntry(VehicleEntryModel model) async {
+    var map = model.toJson();
     int result = await _database.insert(entriesTable, model.toJson());
     if(result != 0){
       return true;
@@ -88,7 +85,6 @@ class StorageRepository implements InterfaceStorageRepository{
     else{
       //making entry inactive
       await _database.update(activeTable, model.toJsonActive(returnStart: false), where: 'slotId = ?', whereArgs: [model.slotId]);
-  
     }
   }
 
