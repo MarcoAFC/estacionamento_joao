@@ -37,7 +37,8 @@ class _HistoryPageState extends ModularState<HistoryPage, HistoryStore> {
                     itemCount: controller.entries.length,
                     itemBuilder: (context, index){
                       return HistoryTile(
-                        model: controller.entries[index]
+                        model: controller.entries[index],
+                        colored: index%2 ==0,
                       );
                     }
                   );
