@@ -1,5 +1,6 @@
 import 'package:estacionamento_joao/app/core/models/vehicle_entry_model.dart';
 import 'package:estacionamento_joao/app/modules/home/store/home_store.dart';
+import 'package:estacionamento_joao/app/modules/home/widgets/end_dialog.dart';
 import 'package:estacionamento_joao/app/modules/home/widgets/parking_slot.dart';
 import 'package:estacionamento_joao/app/modules/home/widgets/start_dialog.dart';
 import 'package:flutter/material.dart';
@@ -42,10 +43,37 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
               await showDialog(
                 context: context, 
                 builder: (context){
+                  return EndDialog(
+                    number: slot.slotId+1,
+                    onSaved: (time) async {
+                      showDialog(
+                        context: context, 
+                        builder: (context){
+                          return Container();
+                        }
+                      );
+                      await controller.freeSlot(slot, DateTime.now());
+                      Modular.to.pop();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Veículo removido com sucesso!',
+                          ),
+                          backgroundColor: Colors.red[800],
+                        )
+                      );
+                    },
+                  );
+                }
+              );
+            }else{
+              await showDialog(
+                context: context, 
+                builder: (context){
                   return StartDialog(
                     number: slot.slotId+1,
                     onSaved: (time) async {
-                      await controller.freeSlot(slot, time);
+                      await controller.occupySlot(slot, time);
                       Modular.to.pop();
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -58,9 +86,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
                     },
                   );
                 }
-              );
-            }else{
-              await controller.occupySlot(slot, DateTime.now());
+              );              
             }
             print(slot.active);
           },
