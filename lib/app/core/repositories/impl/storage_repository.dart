@@ -53,7 +53,16 @@ class StorageRepository implements InterfaceStorageRepository{
   @override
   Future<List<VehicleEntryModel>> getAllEntries() async {
     List<Map<String, dynamic>> databaseQueryResult = await _database.query(entriesTable);
-    List<VehicleEntryModel> vehicleEntries = databaseQueryResult.map((e) => VehicleEntryModel.fromJson(e)).toList();
+    List<VehicleEntryModel> vehicleEntries = databaseQueryResult.map(
+      (e) => 
+        VehicleEntryModel.fromJson(e)
+      )
+      .toList()
+      ..sort(
+        (first, second){
+          return second.start!.compareTo(first.start?? DateTime.now());
+        }
+      );
     return vehicleEntries;
   }
 
