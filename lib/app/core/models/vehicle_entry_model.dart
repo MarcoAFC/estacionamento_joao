@@ -2,8 +2,8 @@ class VehicleEntryModel{
   final int slotId;
   DateTime? start;
   DateTime? end;
-  final int? id;
-  final bool active;
+  int? id;
+  bool active;
 
   VehicleEntryModel(
     {
@@ -21,7 +21,7 @@ class VehicleEntryModel{
       start: (json['start'] != null && json['start'] != 0) ? DateTime.fromMillisecondsSinceEpoch(json['start']) : null,
       end: (json['end'] != null && json['end'] != 0) ? DateTime.fromMillisecondsSinceEpoch(json['end']) : null,
       id: json['id'],
-      active: (json['start'] != null && json['start'] != 0) ? true : false
+      active: (json['start'] != null && json['start'] != 0) && (json['end'] == null || json['end'] == 0) ? true : false
     );
   }
 
@@ -38,6 +38,7 @@ class VehicleEntryModel{
     return {
       'slotId': slotId, 
       'start': returnStart? start?.millisecondsSinceEpoch : 0,
+      'id': id
     };
   }
 }

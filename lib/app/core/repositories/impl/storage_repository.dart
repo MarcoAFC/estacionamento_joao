@@ -32,7 +32,7 @@ class StorageRepository implements InterfaceStorageRepository{
         );
         // this table will be used solely for quicker reference to active items
         await db.execute(
-          'CREATE TABLE $activeTable($slotId INTEGER PRIMARY KEY, $start INTEGER)'
+          'CREATE TABLE $activeTable($slotId INTEGER PRIMARY KEY, $start INTEGER, $id INTEGER)'
         );
         Batch batch = db.batch();
         for(int i = 0; i < parkingSlots; i++){
@@ -67,12 +67,10 @@ class StorageRepository implements InterfaceStorageRepository{
   }
 
   @override
-  Future<bool> insertEntry(VehicleEntryModel model) async {
-    int result = await _database.insert(entriesTable, model.toJson());
-    if(result != 0){
-      return true;
-    }
-    return false;
+  Future<int> insertEntry(VehicleEntryModel model) async {
+    int id = await _database.insert(entriesTable, model.toJson());
+    
+    return id;
   }
   
   @override
@@ -92,6 +90,7 @@ class StorageRepository implements InterfaceStorageRepository{
     }
     else{
       //making entry inactive
+      model.id = null;
       await _database.update(activeTable, model.toJsonActive(returnStart: false), where: 'slotId = ?', whereArgs: [model.slotId]);
     }
   }
