@@ -19,7 +19,17 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          tooltip: 'Abrir histórico',
+          icon: Icon(
+            Icons.history,
+          ),
+          onPressed: (){
+            Modular.to.pushNamed('/history');
+          },
+        ),
+      ),
       body: SafeArea(
         child: Observer(
           builder: (_) {

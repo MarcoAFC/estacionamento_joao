@@ -33,7 +33,9 @@ abstract class _HomeStoreBase with Store {
 
   @action
   Future<void> freeSlot(VehicleEntryModel model, DateTime datetime) async{
-    await _service.insertEntry(model..end = datetime);
+    model.active = false;
+    model.end = datetime;
+    await _service.updateEntry(model);
     await getActiveEntries();
   }
 }
