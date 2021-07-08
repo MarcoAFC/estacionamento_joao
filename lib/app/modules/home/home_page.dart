@@ -44,7 +44,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
         }
       ),
       body: Padding(
-        padding: const EdgeInsets.only(right: 18.0, left: 18.0, top: 30.0),
+        padding: const EdgeInsets.only(right: 18.0, left: 18.0, top: 30.0, bottom: 8.0),
         child: RouterOutlet()
       )
     );
