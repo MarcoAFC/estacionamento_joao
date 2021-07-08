@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'store/home_store.dart';
+import 'store/parking_store.dart';
 import 'widgets/end_dialog.dart';
 import 'widgets/parking_slot.dart';
 import 'widgets/start_dialog.dart';
@@ -17,54 +17,17 @@ class ParkingPage extends StatefulWidget {
 }
 
 class _ParkingPageState extends ModularState<ParkingPage, ParkingStore> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      // appBar: AppBar(
-      //   title: Text('Estacionamento do João'),
-      //   centerTitle: true,
-      //   leading: IconButton(
-      //     tooltip: 'Abrir histórico',
-      //     icon: Icon(
-      //       Icons.history,
-      //     ),
-      //     onPressed: (){
-      //       Modular.to.pushNamed('/history');
-      //     },
-      //   ),
-      // ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            label: 'Estacionamento',
-            icon: Icon(Icons.car_repair_outlined)
-          ),
-          BottomNavigationBarItem(
-            label: 'Histórico',
-            icon: Icon(Icons.history)
-          )
-        ],
-        onTap: (index){
-          
-        },
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 30.0),
-          child: Observer(
-            builder: (_) {
-              return GridView.count(
-                childAspectRatio: 1.5,
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                children: buildParkingSlots(controller.parkingSlots.toList()),
-              );
-            }
-          ),
-        ),
-      ),
+    return Observer(
+        builder: (_) {
+          return GridView.count(
+            childAspectRatio: 1.5,
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            children: buildParkingSlots(controller.parkingSlots.toList()),
+          );
+        }
     );
   }
 
@@ -105,14 +68,14 @@ class _ParkingPageState extends ModularState<ParkingPage, ParkingStore> {
               }
             );
             await controller.freeSlot(slot, time);
-            ScaffoldMessenger.of(scaffoldKey.currentContext?? context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  'Veículo removido com sucesso!',
-                ),
-                backgroundColor: Colors.red[800],
-              )
-            );
+            // ScaffoldMessenger.of(scaffoldKey.currentContext?? context).showSnackBar(
+            //   SnackBar(
+            //     content: Text(
+            //       'Veículo removido com sucesso!',
+            //     ),
+            //     backgroundColor: Colors.red[800],
+            //   )
+            // );
           },
         );
       }
@@ -128,14 +91,14 @@ class _ParkingPageState extends ModularState<ParkingPage, ParkingStore> {
           onSaved: (time) async {
             await controller.occupySlot(slot, time);
             Modular.to.pop();
-            ScaffoldMessenger.of(scaffoldKey.currentContext?? context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  'Registro salvo com sucesso!',
-                ),
-                backgroundColor: Colors.green[800],
-              )
-            );
+            // ScaffoldMessenger.of(scaffoldKey.currentContext?? context).showSnackBar(
+            //   SnackBar(
+            //     content: Text(
+            //       'Registro salvo com sucesso!',
+            //     ),
+            //     backgroundColor: Colors.green[800],
+            //   )
+            // );
           },
         );
       }

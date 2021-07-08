@@ -47,7 +47,7 @@ class ParkingSlot extends StatelessWidget {
                 child: Align(
                   alignment: reversed? Alignment.topLeft : Alignment.topRight,
                   child: Text(
-                    model.slotId.toString(),
+                    (model.slotId+1).toString(),
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
@@ -55,7 +55,7 @@ class ParkingSlot extends StatelessWidget {
             if(!model.active)
               Center(
                 child: Text(
-                  model.slotId.toString(),
+                  (model.slotId+1).toString(),
                   style: Theme.of(context).textTheme.headline1,
                 )
               ),

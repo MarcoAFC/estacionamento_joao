@@ -1,1 +1,1 @@
-const int parkingSlots = 10;
+const int parkingSlots = 20;

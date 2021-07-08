@@ -1,4 +1,4 @@
-import 'package:estacionamento_joao/app/modules/parking/parking_module.dart';
+import 'package:estacionamento_joao/app/modules/home/home_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 
@@ -9,7 +9,7 @@ class AppModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-    ModuleRoute('/', module: ParkingModule())
+    ModuleRoute('/', module: HomeModule())
   ];
 
 }

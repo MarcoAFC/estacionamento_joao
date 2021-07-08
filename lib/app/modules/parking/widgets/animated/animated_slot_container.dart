@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 class AnimatedSlotContainer extends StatefulWidget {
@@ -39,5 +37,11 @@ class _AnimatedSlotContainerState extends State<AnimatedSlotContainer> with Sing
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
