@@ -1,14 +1,14 @@
 import 'package:estacionamento_joao/app/core/models/vehicle_entry_model.dart';
 import 'package:estacionamento_joao/app/core/services/interface_storage_service.dart';
 import 'package:mobx/mobx.dart';
-part 'home_store.g.dart';
+part 'parking_store.g.dart';
 
-class HomeStore = _HomeStoreBase with _$HomeStore;
+class ParkingStore = _ParkingStoreBase with _$ParkingStore;
 
-abstract class _HomeStoreBase with Store {
+abstract class _ParkingStoreBase with Store {
   final InterfaceStorageService _service;
 
-  _HomeStoreBase(this._service){
+  _ParkingStoreBase(this._service){
     init();
   }
   

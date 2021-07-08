@@ -1,8 +1,9 @@
 import 'package:estacionamento_joao/app/core/consts/assets.dart';
 import 'package:estacionamento_joao/app/core/models/vehicle_entry_model.dart';
-import 'package:estacionamento_joao/app/modules/home/widgets/animated/animated_slot_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import 'animated/animated_slot_container.dart';
 
 class ParkingSlot extends StatelessWidget {
   const ParkingSlot({ Key? key, required this.model, this.onTap, this.reversed = false}) : super(key: key);

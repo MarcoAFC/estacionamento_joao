@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_store.dart';
+part of 'parking_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'home_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$HomeStore on _HomeStoreBase, Store {
-  final _$parkingSlotsAtom = Atom(name: '_HomeStoreBase.parkingSlots');
+mixin _$ParkingStore on _ParkingStoreBase, Store {
+  final _$parkingSlotsAtom = Atom(name: '_ParkingStoreBase.parkingSlots');
 
   @override
   ObservableList<VehicleEntryModel> get parkingSlots {
@@ -24,7 +24,7 @@ mixin _$HomeStore on _HomeStoreBase, Store {
     });
   }
 
-  final _$initAsyncAction = AsyncAction('_HomeStoreBase.init');
+  final _$initAsyncAction = AsyncAction('_ParkingStoreBase.init');
 
   @override
   Future<void> init() {
@@ -32,38 +32,38 @@ mixin _$HomeStore on _HomeStoreBase, Store {
   }
 
   final _$getActiveEntriesAsyncAction =
-      AsyncAction('_HomeStoreBase.getActiveEntries');
+      AsyncAction('_ParkingStoreBase.getActiveEntries');
 
   @override
   Future<void> getActiveEntries() {
     return _$getActiveEntriesAsyncAction.run(() => super.getActiveEntries());
   }
 
-  final _$occupySlotAsyncAction = AsyncAction('_HomeStoreBase.occupySlot');
+  final _$occupySlotAsyncAction = AsyncAction('_ParkingStoreBase.occupySlot');
 
   @override
   Future<void> occupySlot(VehicleEntryModel model, DateTime datetime) {
     return _$occupySlotAsyncAction.run(() => super.occupySlot(model, datetime));
   }
 
-  final _$freeSlotAsyncAction = AsyncAction('_HomeStoreBase.freeSlot');
+  final _$freeSlotAsyncAction = AsyncAction('_ParkingStoreBase.freeSlot');
 
   @override
   Future<void> freeSlot(VehicleEntryModel model, DateTime datetime) {
     return _$freeSlotAsyncAction.run(() => super.freeSlot(model, datetime));
   }
 
-  final _$_HomeStoreBaseActionController =
-      ActionController(name: '_HomeStoreBase');
+  final _$_ParkingStoreBaseActionController =
+      ActionController(name: '_ParkingStoreBase');
 
   @override
   void setSlotHandledState(int slotId, bool state) {
-    final _$actionInfo = _$_HomeStoreBaseActionController.startAction(
-        name: '_HomeStoreBase.setSlotHandledState');
+    final _$actionInfo = _$_ParkingStoreBaseActionController.startAction(
+        name: '_ParkingStoreBase.setSlotHandledState');
     try {
       return super.setSlotHandledState(slotId, state);
     } finally {
-      _$_HomeStoreBaseActionController.endAction(_$actionInfo);
+      _$_ParkingStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
