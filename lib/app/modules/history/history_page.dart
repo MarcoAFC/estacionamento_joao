@@ -1,4 +1,3 @@
-import 'package:estacionamento_joao/app/core/models/vehicle_entry_model.dart';
 import 'package:estacionamento_joao/app/modules/history/store/history_store.dart';
 import 'package:estacionamento_joao/app/modules/history/widgets/history_header.dart';
 import 'package:estacionamento_joao/app/modules/history/widgets/history_tile.dart';

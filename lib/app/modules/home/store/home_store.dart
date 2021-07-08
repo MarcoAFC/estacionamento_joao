@@ -38,4 +38,11 @@ abstract class _HomeStoreBase with Store {
     await _service.updateEntry(model);
     await getActiveEntries();
   }
+
+  @action
+  void setSlotHandledState(int slotId, bool state){
+    var slot = parkingSlots[slotId];
+    parkingSlots.remove(slot);
+    parkingSlots.insert(slotId, slot..beingHandled = state);
+  }
 }

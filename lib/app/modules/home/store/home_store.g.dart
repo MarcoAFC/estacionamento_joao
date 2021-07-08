@@ -53,6 +53,20 @@ mixin _$HomeStore on _HomeStoreBase, Store {
     return _$freeSlotAsyncAction.run(() => super.freeSlot(model, datetime));
   }
 
+  final _$_HomeStoreBaseActionController =
+      ActionController(name: '_HomeStoreBase');
+
+  @override
+  void setSlotHandledState(int slotId, bool state) {
+    final _$actionInfo = _$_HomeStoreBaseActionController.startAction(
+        name: '_HomeStoreBase.setSlotHandledState');
+    try {
+      return super.setSlotHandledState(slotId, state);
+    } finally {
+      _$_HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

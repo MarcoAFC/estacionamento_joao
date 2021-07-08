@@ -16,10 +16,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeStore> {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
+        title: Text('Estacionamento do João'),
+        centerTitle: true,
         leading: IconButton(
           tooltip: 'Abrir histórico',
           icon: Icon(
@@ -31,14 +35,18 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
         ),
       ),
       body: SafeArea(
-        child: Observer(
-          builder: (_) {
-            return GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              children: buildParkingSlots(controller.parkingSlots.toList()),
-            );
-          }
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
+          child: Observer(
+            builder: (_) {
+              return GridView.count(
+                childAspectRatio: 1.5,
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                children: buildParkingSlots(controller.parkingSlots.toList()),
+              );
+            }
+          ),
         ),
       ),
     );
@@ -48,63 +56,74 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
     var children = parkingSlots
         .map((slot) => ParkingSlot(
           model: slot,
+          reversed: slot.slotId%2 == 1,
           onTap: () async {
+            controller.setSlotHandledState(slot.slotId, true);
             if(slot.active){
-              await showDialog(
-                context: context, 
-                builder: (context){
-                  return EndDialog(
-                    number: slot.slotId+1,
-                    onSaved: (time) async {
-                      Modular.to.pop();
-                      showDialog(
-                        context: context, 
-                        builder: (context){
-                          return TotalTimeDialog(
-                            startTime: slot.start,
-                            endTime: time,
-                          );
-                        }
-                      );
-                      await controller.freeSlot(slot, time);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Veículo removido com sucesso!',
-                          ),
-                          backgroundColor: Colors.red[800],
-                        )
-                      );
-                    },
-                  );
-                }
-              );
+              await handleActiveSlot(context, slot);
             }else{
-              await showDialog(
-                context: context, 
-                builder: (context){
-                  return StartDialog(
-                    number: slot.slotId+1,
-                    onSaved: (time) async {
-                      await controller.occupySlot(slot, time);
-                      Modular.to.pop();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Registro salvo com sucesso!',
-                          ),
-                          backgroundColor: Colors.green[800],
-                        )
-                      );
-                    },
-                  );
-                }
-              );              
+              await handleInactiveSlot(context, slot);       
             }
-            print(slot.active);
+            controller.setSlotHandledState(slot.slotId, false);
           },
         ))
         .toList();
     return children;
   }
+
+  Future<void> handleActiveSlot(BuildContext context, VehicleEntryModel slot) async {
+    await showDialog(
+      context: context, 
+      builder: (context){
+        return EndDialog(
+          number: slot.slotId+1,
+          onSaved: (time) async {
+            Modular.to.pop();
+            showDialog(
+              context: context, 
+              builder: (context){
+                return TotalTimeDialog(
+                  startTime: slot.start,
+                  endTime: time,
+                );
+              }
+            );
+            await controller.freeSlot(slot, time);
+            ScaffoldMessenger.of(scaffoldKey.currentContext?? context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'Veículo removido com sucesso!',
+                ),
+                backgroundColor: Colors.red[800],
+              )
+            );
+          },
+        );
+      }
+    );
+  }
+
+  Future<void> handleInactiveSlot(BuildContext context, VehicleEntryModel slot) async {
+    await showDialog(
+      context: context, 
+      builder: (context){
+        return StartDialog(
+          number: slot.slotId+1,
+          onSaved: (time) async {
+            await controller.occupySlot(slot, time);
+            Modular.to.pop();
+            ScaffoldMessenger.of(scaffoldKey.currentContext?? context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'Registro salvo com sucesso!',
+                ),
+                backgroundColor: Colors.green[800],
+              )
+            );
+          },
+        );
+      }
+    ); 
+  }
+  
 }
