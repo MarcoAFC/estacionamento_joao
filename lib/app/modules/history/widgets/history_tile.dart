@@ -39,16 +39,19 @@ class HistoryTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Horário de entrada: $entryTime',
+                  'Entrada: $entryTime',
                   style: TextStyle(
                     fontSize: 16
                   ),
                 ),
                 if(!model.active)
-                  Text(
-                    'Horário de saída: $endTime',
-                    style: TextStyle(
-                      fontSize: 16
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    child: Text(
+                      'Saída: $endTime',
+                      style: TextStyle(
+                        fontSize: 16
+                      ),
                     ),
                   ),
                 if(!model.active)

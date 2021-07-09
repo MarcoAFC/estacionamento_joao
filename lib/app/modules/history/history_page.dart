@@ -1,4 +1,3 @@
-import 'package:estacionamento_joao/app/core/models/vehicle_entry_model.dart';
 import 'package:estacionamento_joao/app/modules/history/store/history_store.dart';
 import 'package:estacionamento_joao/app/modules/history/widgets/history_header.dart';
 import 'package:estacionamento_joao/app/modules/history/widgets/history_tile.dart';
@@ -16,12 +15,9 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends ModularState<HistoryPage, HistoryStore> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Histórico'),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
+    return Container(
+      padding: const EdgeInsets.only(right: 18.0, left: 18.0, top: 38.0, bottom: 8.0),
+      child: SingleChildScrollView(
         physics: ScrollPhysics(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -32,13 +28,14 @@ class _HistoryPageState extends ModularState<HistoryPage, HistoryStore> {
               child: Observer(
                 builder: (BuildContext context) {
                   return ListView.builder(
+                    padding: EdgeInsets.zero,
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: controller.entries.length,
                     itemBuilder: (context, index){
                       return HistoryTile(
                         model: controller.entries[index],
-                        colored: index%2 ==0,
+                        colored: index%2 == 0,
                       );
                     }
                   );

@@ -1,110 +1,51 @@
-import 'package:estacionamento_joao/app/core/models/vehicle_entry_model.dart';
-import 'package:estacionamento_joao/app/modules/home/store/home_store.dart';
-import 'package:estacionamento_joao/app/modules/home/widgets/end_dialog.dart';
-import 'package:estacionamento_joao/app/modules/home/widgets/parking_slot.dart';
-import 'package:estacionamento_joao/app/modules/home/widgets/start_dialog.dart';
-import 'package:estacionamento_joao/app/modules/home/widgets/total_time_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
+import 'stores/home_store.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends ModularState<HomePage, HomeStore> {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
+  @override
+  void initState() { 
+    super.initState();
+    controller.setIndex(0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          tooltip: 'Abrir histórico',
-          icon: Icon(
-            Icons.history,
-          ),
-          onPressed: (){
-            Modular.to.pushNamed('/history');
-          },
-        ),
+      key: scaffoldKey,
+      bottomNavigationBar: Observer(
+        builder: (_) {
+          return BottomNavigationBar(
+            backgroundColor: Color(0xFF3278ff),
+            fixedColor: Colors.white,
+            currentIndex: controller.index,
+            items: [
+              BottomNavigationBarItem(
+                  label: 'Estacionamento',
+                  icon: Icon(Icons.car_repair_outlined)),
+              BottomNavigationBarItem(
+                  label: 'Histórico', icon: Icon(Icons.history))
+            ],
+            onTap: controller.setIndex,
+            selectedFontSize: 18,
+            unselectedFontSize: 16,
+            unselectedItemColor: Colors.black
+          );
+        }
       ),
-      body: SafeArea(
-        child: Observer(
-          builder: (_) {
-            return GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              children: buildParkingSlots(controller.parkingSlots.toList()),
-            );
-          }
-        ),
-      ),
+      body: RouterOutlet()
+      
     );
-  }
-
-  List<Widget> buildParkingSlots(List<VehicleEntryModel> parkingSlots) {
-    var children = parkingSlots
-        .map((slot) => ParkingSlot(
-          model: slot,
-          onTap: () async {
-            if(slot.active){
-              await showDialog(
-                context: context, 
-                builder: (context){
-                  return EndDialog(
-                    number: slot.slotId+1,
-                    onSaved: (time) async {
-                      Modular.to.pop();
-                      showDialog(
-                        context: context, 
-                        builder: (context){
-                          return TotalTimeDialog(
-                            startTime: slot.start,
-                            endTime: time,
-                          );
-                        }
-                      );
-                      await controller.freeSlot(slot, time);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Veículo removido com sucesso!',
-                          ),
-                          backgroundColor: Colors.red[800],
-                        )
-                      );
-                    },
-                  );
-                }
-              );
-            }else{
-              await showDialog(
-                context: context, 
-                builder: (context){
-                  return StartDialog(
-                    number: slot.slotId+1,
-                    onSaved: (time) async {
-                      await controller.occupySlot(slot, time);
-                      Modular.to.pop();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Registro salvo com sucesso!',
-                          ),
-                          backgroundColor: Colors.green[800],
-                        )
-                      );
-                    },
-                  );
-                }
-              );              
-            }
-            print(slot.active);
-          },
-        ))
-        .toList();
-    return children;
   }
 }

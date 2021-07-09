@@ -4,6 +4,7 @@ class VehicleEntryModel{
   DateTime? end;
   int? id;
   bool active;
+  bool beingHandled;
 
   VehicleEntryModel(
     {
@@ -11,7 +12,8 @@ class VehicleEntryModel{
       this.start,
       this.end, 
       this.id,
-      this.active = false
+      this.active = false,
+      this.beingHandled = false
     }
   );
 
