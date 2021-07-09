@@ -17,6 +17,7 @@ class ParkingPage extends StatefulWidget {
 }
 
 class _ParkingPageState extends ModularState<ParkingPage, ParkingStore> {
+  final scaffoldKey = Modular.get<GlobalKey<ScaffoldState>>();
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -90,14 +91,14 @@ class _ParkingPageState extends ModularState<ParkingPage, ParkingStore> {
               }
             );
             await controller.freeSlot(slot, time);
-            // ScaffoldMessenger.of(scaffoldKey.currentContext?? context).showSnackBar(
-            //   SnackBar(
-            //     content: Text(
-            //       'Veículo removido com sucesso!',
-            //     ),
-            //     backgroundColor: Colors.red[800],
-            //   )
-            // );
+            ScaffoldMessenger.of(scaffoldKey.currentContext?? context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'Veículo removido com sucesso!',
+                ),
+                backgroundColor: Colors.red[800],
+              )
+            );
           },
         );
       }
@@ -113,14 +114,14 @@ class _ParkingPageState extends ModularState<ParkingPage, ParkingStore> {
           onSaved: (time) async {
             await controller.occupySlot(slot, time);
             Modular.to.pop();
-            // ScaffoldMessenger.of(scaffoldKey.currentContext?? context).showSnackBar(
-            //   SnackBar(
-            //     content: Text(
-            //       'Registro salvo com sucesso!',
-            //     ),
-            //     backgroundColor: Colors.green[800],
-            //   )
-            // );
+            ScaffoldMessenger.of(scaffoldKey.currentContext?? context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'Registro salvo com sucesso!',
+                ),
+                backgroundColor: Colors.green[800],
+              )
+            );
           },
         );
       }

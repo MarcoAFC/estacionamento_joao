@@ -12,7 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeStore> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   @override
   void initState() { 
@@ -23,7 +22,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
+      key: Modular.get<GlobalKey<ScaffoldState>>(),
       bottomNavigationBar: Observer(
         builder: (_) {
           return BottomNavigationBar(
