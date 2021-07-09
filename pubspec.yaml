@@ -29,7 +29,7 @@ dependencies:
   flutter_mobx: ^2.0.0
   flutter_modular: ^3.3.0
   flutter_svg: ^0.22.0
-  intl: null
+  intl: 
   mobx: ^2.0.1
   sqflite: ^2.0.0+3
 

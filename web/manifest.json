@@ -1,6 +1,6 @@
 {
-    "name": "estacionamento_joao",
-    "short_name": "estacionamento_joao",
+    "name": "Estacionamento",
+    "short_name": "Estacionamento",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -170,7 +170,7 @@ main(){
 
       var json = model.toJsonActive(returnStart: false);
 
-      expect(json['start'], time.millisecondsSinceEpoch);
+      expect(json['start'], 0);
     });
   });
 }
