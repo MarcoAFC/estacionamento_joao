@@ -38,8 +38,7 @@
   Para a tela de histórico buscamos representar de forma direta todos os dados relevantes para aquele registro, isto é, o horário de entrada, para todos os registros, e os horários de saída e tempo total para os registros concluídos. 
   As opções de interação do usuário se dão por meio dos botões circulares na parte superior da tela, que permitem a filtragem por tipo de veículo:
   
-<img src="https://user-images.githubusercontent.com/34992176/125111736-a2848780-e0bc-11eb-8ad4-0d20a67f2b50.png" alt="Tela de histórico" ativos width="300"/>
-<img src="https://user-images.githubusercontent.com/34992176/125111751-a6b0a500-e0bc-11eb-97a0-58389d4e0dcf.png" alt="Tela de histórico inativos" width="300"/>
+<img src="https://user-images.githubusercontent.com/34992176/125111736-a2848780-e0bc-11eb-8ad4-0d20a67f2b50.png" alt="Tela de histórico" ativos width="300"/>  <img src="https://user-images.githubusercontent.com/34992176/125111751-a6b0a500-e0bc-11eb-97a0-58389d4e0dcf.png" alt="Tela de histórico inativos" width="300"/>
 
 ## Execução
   Para executar o aplicativo, basta realizar a clonagem do código fonte e, com o Flutter instalado em seu computador, utilizar os comandos:
