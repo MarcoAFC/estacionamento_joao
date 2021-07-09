@@ -1,6 +1,3 @@
-import 'package:estacionamento_joao/app/core/repositories/impl/storage_repository.dart';
-import 'package:estacionamento_joao/app/core/repositories/interface_storage_repository.dart';
-import 'package:estacionamento_joao/app/core/services/impl/storage_service.dart';
 import 'package:estacionamento_joao/app/modules/history/history_module.dart';
 import 'package:estacionamento_joao/app/modules/home/home_page.dart';
 import 'package:estacionamento_joao/app/modules/home/stores/home_store.dart';
@@ -11,8 +8,6 @@ class HomeModule extends Module {
   
   @override
   List<Bind> get binds => [
-    Bind.singleton((i) => StorageRepository()),
-    Bind.singleton((i) => StorageService(i.get<InterfaceStorageRepository>())),
     Bind((i) => HomeStore())
   ];
 
