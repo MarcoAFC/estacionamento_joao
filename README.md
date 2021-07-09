@@ -59,6 +59,7 @@
 
 ## Autor
   Essa implementação, design, testes e textos foram feitos por Marco A. Fernandes e estão disponíveis para usos de qualquer fim.
+  
   A imagem 'carro.svg' foi obtida sob licença de domnínio público.
   
 
