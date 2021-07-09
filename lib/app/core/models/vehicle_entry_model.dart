@@ -39,7 +39,7 @@ class VehicleEntryModel{
   Map<String, dynamic> toJsonActive({bool returnStart = true}){
     return {
       'slotId': slotId, 
-      'start': returnStart? start?.millisecondsSinceEpoch : 0,
+      'start': returnStart? start?.millisecondsSinceEpoch?? 0 : 0,
       'id': id
     };
   }
