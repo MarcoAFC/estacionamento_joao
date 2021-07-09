@@ -20,7 +20,6 @@ abstract class _HistoryStoreBase with Store {
   @action
   init() async {
     allEntries = await _service.getAllEntries();
-    entries = ObservableList.of(allEntries);
     manageEntries();
   }
 
