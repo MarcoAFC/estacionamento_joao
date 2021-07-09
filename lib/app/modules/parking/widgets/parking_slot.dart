@@ -19,12 +19,11 @@ class ParkingSlot extends StatelessWidget {
         height: 100,
         decoration: BoxDecoration(
           border: Border(
-            right: reversed? BorderSide.none :BorderSide(color: Colors.black),
-            bottom: BorderSide(color: Colors.grey),
-            top: BorderSide(color: Colors.grey),
-            left: reversed? BorderSide(color: Colors.black):BorderSide.none,
-          ),
-          color: getBackgroundColor()
+            right: reversed? BorderSide.none :BorderSide(color: Colors.yellow, width: 2.0),
+            bottom: BorderSide(color: Colors.yellow, width: 2.0),
+            top: BorderSide(color: Colors.yellow, width: 2.0),
+            left: reversed? BorderSide(color: Colors.yellow, width: 2.0):BorderSide.none,
+          )
         ),
         child: Stack(
           children: [
@@ -33,13 +32,25 @@ class ParkingSlot extends StatelessWidget {
             if(model.active)
               Transform.scale(
                 scale: 0.9,
-                child: RotatedBox(
-                  quarterTurns: reversed? 2: 0,
-                  child: 
-                    SvgPicture.asset(
-                      Images.carSvg,
-                    ),
-                ),
+                child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade800.withOpacity(0.5),
+                            spreadRadius: 0,
+                            blurRadius: 25,
+                            offset: Offset(0, 5), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child:RotatedBox(
+                        quarterTurns: reversed? 2: 0,
+                        child: 
+                          SvgPicture.asset(
+                              Images.carSvg,
+                            ),
+                          ),
+                      ),
               ),
             if(model.active)
               Padding(
@@ -65,12 +76,4 @@ class ParkingSlot extends StatelessWidget {
     );
   }
 
-  Color getBackgroundColor(){
-    if(model.active){
-      return Colors.grey.shade300;
-    }
-    else{
-      return Colors.white;
-    }
-  }
 }

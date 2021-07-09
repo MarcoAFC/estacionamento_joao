@@ -27,7 +27,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
       bottomNavigationBar: Observer(
         builder: (_) {
           return BottomNavigationBar(
-            backgroundColor: Colors.blue,
+            backgroundColor: Color(0xFF3278ff),
             fixedColor: Colors.white,
             currentIndex: controller.index,
             items: [
@@ -40,13 +40,12 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
             onTap: controller.setIndex,
             selectedFontSize: 18,
             unselectedFontSize: 16,
+            unselectedItemColor: Colors.black
           );
         }
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(right: 18.0, left: 18.0, top: 30.0, bottom: 8.0),
-        child: RouterOutlet()
-      )
+      body: RouterOutlet()
+      
     );
   }
 }

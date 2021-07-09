@@ -1,3 +1,4 @@
+import 'package:estacionamento_joao/app/core/consts/project_consts.dart';
 import 'package:estacionamento_joao/app/core/models/vehicle_entry_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -20,34 +21,56 @@ class _ParkingPageState extends ModularState<ParkingPage, ParkingStore> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-        builder: (_) {
-          return GridView.count(
-            childAspectRatio: 1.5,
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            children: buildParkingSlots(controller.parkingSlots.toList()),
-          );
-        }
+      builder: (_) {
+        return Container(
+          color: Colors.grey,
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                title: Text(
+                  "Estacionamento do Seu João", 
+                ),
+                centerTitle: true,
+                backgroundColor: Color(0xFF3278ff),
+                floating: true,
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.only(right: 18.0, left: 18.0, top: 8.0, bottom: 8.0),
+                sliver: SliverGrid(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, 
+                    childAspectRatio: 1.5
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index){
+                      return buildParkingSlots(controller.parkingSlots[index]);
+                    },
+                    childCount: controller.parkingSlots.length
+                  ),
+                  
+                ),
+              )
+            ],
+          ),
+        );
+      }
     );
   }
 
-  List<Widget> buildParkingSlots(List<VehicleEntryModel> parkingSlots) {
-    var children = parkingSlots
-        .map((slot) => ParkingSlot(
-          model: slot,
-          reversed: slot.slotId%2 == 1,
-          onTap: () async {
-            controller.setSlotHandledState(slot.slotId, true);
-            if(slot.active){
-              await handleActiveSlot(context, slot);
-            }else{
-              await handleInactiveSlot(context, slot);       
-            }
-            controller.setSlotHandledState(slot.slotId, false);
-          },
-        ))
-        .toList();
-    return children;
+  Widget buildParkingSlots(VehicleEntryModel slot) {
+    return ParkingSlot(
+      model: slot,
+      reversed: slot.slotId%2 == 1,
+      onTap: () async {
+        controller.setSlotHandledState(slot.slotId, true);
+        if(slot.active){
+          await handleActiveSlot(context, slot);
+        }else{
+          await handleInactiveSlot(context, slot);       
+        }
+        controller.setSlotHandledState(slot.slotId, false);
+      },
+    );
   }
 
   Future<void> handleActiveSlot(BuildContext context, VehicleEntryModel slot) async {

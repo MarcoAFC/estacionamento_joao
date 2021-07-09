@@ -16,6 +16,7 @@ class _HistoryPageState extends ModularState<HistoryPage, HistoryStore> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.only(right: 18.0, left: 18.0, top: 38.0, bottom: 8.0),
       child: SingleChildScrollView(
         physics: ScrollPhysics(),
         child: Column(
