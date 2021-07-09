@@ -20,7 +20,7 @@ class HistoryTile extends StatelessWidget {
         border: Border(
           bottom: BorderSide()
         ),
-        color: colored? Colors.grey[100] : Colors.white
+        color: colored? Colors.grey[200] : Colors.white
       ),
       child: Row(
         children: [

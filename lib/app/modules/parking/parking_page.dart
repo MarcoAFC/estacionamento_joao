@@ -1,4 +1,3 @@
-import 'package:estacionamento_joao/app/core/consts/project_consts.dart';
 import 'package:estacionamento_joao/app/core/models/vehicle_entry_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
