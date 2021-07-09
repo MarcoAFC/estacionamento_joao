@@ -29,11 +29,9 @@ class _AnimatedSlotContainerState extends State<AnimatedSlotContainer> with Sing
       scale: _animation,
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(
-            width: borderWidth
-          ),
+          
           borderRadius: BorderRadius.circular(20.0),
-          color: Colors.yellow.withOpacity(0.2)
+          color: Colors.yellow.shade300.withOpacity(0.5)
         ),
       ),
     );

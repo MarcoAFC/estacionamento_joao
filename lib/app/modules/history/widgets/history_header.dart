@@ -14,7 +14,7 @@ class HistoryHeader extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerRight,
         child: Container(
-          padding: EdgeInsets.only(right: 10, bottom: 8.0),
+          padding: EdgeInsets.only(right: 10, bottom: 8.0, top: 8.0),
           child: Text(
             "Vaga",
             style: TextStyle(

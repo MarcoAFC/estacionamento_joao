@@ -15,11 +15,46 @@ abstract class _HistoryStoreBase with Store {
   @observable
   ObservableList<VehicleEntryModel> entries = ObservableList.of([]);
 
+  List<VehicleEntryModel> allEntries = [];
 
   @action
   init() async {
-    entries = ObservableList.of(await _service.getAllEntries());
+    allEntries = await _service.getAllEntries();
+    entries = ObservableList.of(allEntries);
+    manageEntries();
   }
 
+  @observable
+  bool showActive = true;
 
+  @action
+  void setShowActive(){
+    showActive = !showActive;
+    manageEntries();
+  }
+
+  @observable
+  bool showInactive = true;
+
+  @action
+  void setShowInactive(){
+    showInactive = !showInactive;
+    manageEntries();
+  }
+
+  @action
+  void manageEntries(){
+    entries.clear();
+    if(showActive){
+      entries.addAll(allEntries.where((element) => element.active));
+    }
+    if(showInactive){
+      entries.addAll(allEntries.where((element) => !element.active));
+    }
+    entries.sort(
+      (first, second){
+        return second.start!.compareTo(first.start?? DateTime.now());
+      }
+    );
+  }
 }

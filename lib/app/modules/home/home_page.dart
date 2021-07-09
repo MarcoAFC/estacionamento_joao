@@ -33,7 +33,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
             items: [
               BottomNavigationBarItem(
                   label: 'Estacionamento',
-                  icon: Icon(Icons.car_repair_outlined)),
+                  icon: Icon(Icons.directions_car)),
               BottomNavigationBarItem(
                   label: 'Histórico', icon: Icon(Icons.history))
             ],
